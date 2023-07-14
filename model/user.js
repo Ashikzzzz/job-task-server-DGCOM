@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const crypto = require("crypto") 
 
 // user schema 
 
@@ -24,7 +25,8 @@ const userSchema = new mongoose.Schema({
         default: false
     },
     emailToken: {
-        type: String
+        type: String,
+        value: crypto.randomBytes(64).toString("hex")
     }
    
     
