@@ -21,3 +21,9 @@ exports.createAuserService = async(data)=>{
         })
     }
     }
+
+    // login a user service--------------------------------
+exports.loginAuserService = async(email)=>{
+    const result = await User.findOne({email:email})
+    return result;
+}
