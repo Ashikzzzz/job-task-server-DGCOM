@@ -1,4 +1,4 @@
-const { createAuserService } = require("../services/user.services");
+const { createAuserService,loginAuserService } = require("../services/user.services");
 // const { generateToken } = require("../utils/token");
 
 // save a user controller-------------------------------
