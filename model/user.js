@@ -26,6 +26,17 @@ const userSchema = new mongoose.Schema({
 }
 )
 
+// check password is hashed 
+
+userSchema.pre("save",function(next){
+    const password = this.password
+    const hashedPassword = bcrypt.hashSync(password)
+    this.password =hashedPassword
+    next()
+
+})
+
+
 
 // user model 
 
