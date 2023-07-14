@@ -1,5 +1,5 @@
 const { createAuserService,loginAuserService } = require("../services/user.services");
-// const { generateToken } = require("../utils/token");
+const { generateToken } = require("../utils/token");
 
 // save a user controller-------------------------------
 exports.createAuser = async(req, res)=>{
