@@ -92,3 +92,21 @@ exports.loginAuser = async(req, res)=>{
         })
     }
 }
+
+//  user persistance -------------------------------
+exports.getMe = async(req, res)=>{
+    try {
+        console.log(req?.user?.email)
+       let user= await findUserByEmail(req?.user?.email)
+       console.log("user",user)
+        res.status(200).json({
+            status: 'success',
+            data: user
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'error',
+            error: error.message
+        })
+    }
+}
