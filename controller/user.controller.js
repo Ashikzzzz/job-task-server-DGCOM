@@ -1,3 +1,5 @@
+const { createAuserService } = require("../services/user.services");
+
 // save a user controller-------------------------------
 exports.createAuser = async(req, res)=>{
     try {
