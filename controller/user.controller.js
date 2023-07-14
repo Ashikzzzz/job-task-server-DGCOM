@@ -1,4 +1,4 @@
-const { createAuserService,loginAuserService } = require("../services/user.services");
+const { createAuserService,loginAuserService ,findUserByEmail} = require("../services/user.services");
 const { generateToken } = require("../utils/token");
 
 // save a user controller-------------------------------
@@ -88,6 +88,25 @@ exports.loginAuser = async(req, res)=>{
         res.status(400).json({
             status: 'error',
             massage: "User logged in Error",
+            error: error.message
+        })
+    }
+}
+
+
+//  user persistance -------------------------------
+exports.getMe = async(req, res)=>{
+    try {
+        console.log(req?.user?.email)
+       let user= await findUserByEmail(req?.user?.email)
+       console.log("user",user)
+        res.status(200).json({
+            status: 'success',
+            data: user
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'error',
             error: error.message
         })
     }
