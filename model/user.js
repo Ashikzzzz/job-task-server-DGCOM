@@ -26,8 +26,6 @@ const userSchema = new mongoose.Schema({
 }
 )
 
-
-
 // check password is hashed 
 
 userSchema.pre("save",function(next){
@@ -37,6 +35,8 @@ userSchema.pre("save",function(next){
     next()
 
 })
+
+
 
 // user model 
 
