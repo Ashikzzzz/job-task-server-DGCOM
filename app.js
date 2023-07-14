@@ -9,9 +9,9 @@ const userRoute = require("./routes/user.route")
 app.use(express.json());
 app.use(cors());
 
+
 // using user routes
 app.use("/api/v1/users",userRoute)
-
 
 
 // ---------- Happy Server ----------
