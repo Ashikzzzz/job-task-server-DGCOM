@@ -8,14 +8,14 @@ exports.createAuser = async(req, res)=>{
         const data = req.body;
         console.log("data",data)
         const result = await createAuserService(data)
-        console.log("result",result)
+        // console.log("result",result)
 
             const mailData ={
                 to: [user.email],
                 subject: "verify your email",
                 text: "thnx"
             }
-
+            console.log("maildata",mailData)
             sendMailWithGmail(mailData)
 
         res.status(200).json({
