@@ -26,6 +26,16 @@ module.exports.sendMailWithGmail = async (data)=>{
 
     const mailData = {
         from: process.env.SENDER_MAIL,
-        
+        to: data.to,
+        subject: data.subject,
+        text: data.text
     }
+
+    console.log(mailData)
+
+    let info = await transporter.sendMail(mailData)
+console.log("messegeID",info.messageId)
+
+return info.messageId
+
 }
