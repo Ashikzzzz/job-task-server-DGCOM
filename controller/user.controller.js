@@ -11,7 +11,7 @@ exports.createAuser = async(req, res)=>{
         console.log("result",result)
 
             const mailData ={
-                to: [user.email],
+                to: [data.email],
                 subject: "verify your email",
                 text: "thnx"
             }
