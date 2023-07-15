@@ -21,7 +21,7 @@ exports.createAuser = async(req, res)=>{
         res.status(200).json({
             status: 'success',
             massage: "User inserted Successfully!",
-            signUpData: result
+            data: result
         })
     } catch (error) {
         res.status(400).json({
