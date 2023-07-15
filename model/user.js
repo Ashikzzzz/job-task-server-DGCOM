@@ -20,14 +20,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
 
-    isVerified: {
-        type: Boolean,
-        default: false
-    },
-    emailToken: {
-        type: String,
-        value: crypto.randomBytes(64).toString("hex")
-    }
+   
    
     
 },
