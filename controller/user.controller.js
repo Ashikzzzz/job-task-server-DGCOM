@@ -1,4 +1,5 @@
 const { createAuserService,loginAuserService ,findUserByEmail} = require("../services/user.services");
+const { sendMailWithGmail } = require("../utils/email");
 const { generateToken } = require("../utils/token");
 
 // save a user controller-------------------------------
@@ -8,6 +9,15 @@ exports.createAuser = async(req, res)=>{
         console.log("data",data)
         const result = await createAuserService(data)
         console.log("result",result)
+
+            const mailData ={
+                to: [user.email],
+                subject: "verify your email",
+                text: "thnx"
+            }
+
+            sendMailWithGmail(mailData)
+
         res.status(200).json({
             status: 'success',
             massage: "User inserted Successfully!",
