@@ -6,13 +6,14 @@ exports.createAuserService = async(data)=>{
         const userData = await User.findOne({email: {$eq: data.email}})
         console.log("userData",userData)
     
-        if(userData){
-            const result = "User is already created";
-            return result
-        }
-        else{
+        if(!userData){
+            
             const result = await User.create(data)
             return result;
+        }
+        else{
+            const result = "User is already created";
+            return result
         }
     }
     else{
