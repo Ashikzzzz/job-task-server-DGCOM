@@ -126,3 +126,23 @@ exports.getMe = async(req, res)=>{
         })
     }
 }
+
+
+//  confirmation gmail controller -------------------------------
+exports.confirmEmail = async(req, res)=>{
+    try {
+        const token =  req.params.token 
+
+        const result = await confirmGmailServices(token)
+       
+        res.status(200).json({
+            status: 'success',
+            data: result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'error',
+            error: error.message
+        })
+    }
+}
