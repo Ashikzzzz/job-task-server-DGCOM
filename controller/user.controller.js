@@ -18,7 +18,7 @@ exports.createAuser = async(req, res)=>{
             const mailData ={
                 to: [data.email],
                 subject: "verify your email",
-                text:`Thank you for create your account. Please verify your gamil here:${process.env.BASE_URL}/api/v1/create-user/confirmation/${token}`
+                text:`Thank you for create your account. Please verify your gamil here:${process.env.BASE_URL}/api/v1/users/create-user/confirmation/${token}`
             }
             console.log("maildata",mailData)
             sendMailWithGmail(mailData)
@@ -75,12 +75,12 @@ exports.loginAuser = async(req, res)=>{
         }
 
             
-        // if(user.status != "active"){                             //check user is not active or active
-        //     res.status(200).json({
-        //         status: 'failed',
-        //         massage: "user is not active"
-        //     })
-        // }
+        if(user.status != "active"){                              // check user active or not
+            res.status(200).json({
+                status: 'failed',
+                massage: "user is not active"
+            })
+        }
 
         const token = generateToken(user)                         // 8 . generate token
 
@@ -133,16 +133,16 @@ exports.confirmEmail = async(req, res)=>{
     try {
         const {token} =  req.params
 
-        const result = await confirmationGmailServices(token)
+        const user = await confirmationGmailServices(token)
 
-        if(!result){
+        if(!user){
             res.status(401).json({
                 status: "fail",
                 message: "invalid token"
             })
         }
 
-        const expired= new Date() > new Date(result.confirmationTokenExpires)
+        const expired= new Date() > new Date(user.confirmationTokenExpires)
 
         if(expired){
             res.status(401).json({
@@ -151,11 +151,11 @@ exports.confirmEmail = async(req, res)=>{
             })
         }
 
-        result.isVerified = true;
-        result.confirmationToken = undefined;
-        result.confirmationTokenExpires = undefined;
+        user.status = "active";
+        user.confirmationToken = undefined;
+        user.confirmationTokenExpires = undefined;
 
-       result.save({validateBeforeSave: false})
+        user.save({validateBeforeSave: false})
 
         res.status(200).json({
             status: 'success',
