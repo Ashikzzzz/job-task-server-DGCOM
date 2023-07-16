@@ -7,13 +7,18 @@ exports.createAuser = async(req, res)=>{
     try {
         const data = req.body;
         console.log("data",data)
+       
+
         const result = await createAuserService(data)
+        const token = result.generateConfirmGmailToken()
+
+        await result.save({validateBeforeSave: false})
         // console.log("result",result)
 
             const mailData ={
                 to: [data.email],
                 subject: "verify your email",
-                text: "thnx"
+                text:`Thank you for create your account. Please verify your gamil here:${process.env.BASE_URL}/api/v1/create-user/confirmation/${token}`
             }
             console.log("maildata",mailData)
             sendMailWithGmail(mailData)
