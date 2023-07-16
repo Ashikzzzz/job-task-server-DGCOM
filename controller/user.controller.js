@@ -1,4 +1,4 @@
-const { createAuserService,loginAuserService ,findUserByEmail} = require("../services/user.services");
+const { createAuserService,loginAuserService ,findUserByEmail,confirmGmailServices} = require("../services/user.services");
 const { sendMailWithGmail } = require("../utils/email");
 const { generateToken } = require("../utils/token");
 
