@@ -8,6 +8,11 @@ const verifyToken = require("../middleware/verifyToken")
 router.route("/create-user")
 .post(userController.createAuser)
 
+
+// get confirmation gmail route ---------
+router.route("/create-user/confirmation/:token")
+.get(userController.confirmEmail)
+
 // login router---------------------
 router.route("/log-in")
 .post(userController.loginAuser)
