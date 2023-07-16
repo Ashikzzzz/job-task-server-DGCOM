@@ -23,10 +23,11 @@ const userSchema = new mongoose.Schema({
    isVerified:{
     type: Boolean,
     default: false
-   }
-   
-    
+   },
+   confirmationToken: String,
+   confirmationTokenExpires: Date,
 },
+
 {
     timestamps: true,
 }
@@ -48,6 +49,20 @@ userSchema.pre("save",function(next){
 userSchema.methods.comparePassword = (password, hash)=>{
     const isPasswordValid = bcrypt.compareSync(password,hash)
     return isPasswordValid
+}
+
+// generate token for email verification -------------
+userSchema.methods.generateConfirmGmailToken =function (){
+const token = crypto.randomBytes(64).toString("hex")
+
+this.confirmationToken = token;
+const date = new Date()
+date.setDate(date.getDate()+1)
+
+this.confirmationTokenExpires = date;
+
+return token;
+
 }
 
 
