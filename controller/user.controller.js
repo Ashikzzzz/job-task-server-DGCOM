@@ -1,4 +1,4 @@
-const { createAuserService,loginAuserService ,findUserByEmail,confirmGmailServices} = require("../services/user.services");
+const { createAuserService,loginAuserService ,findUserByEmail,confirmationGmailServices} = require("../services/user.services");
 const { sendMailWithGmail } = require("../utils/email");
 const { generateToken } = require("../utils/token");
 
@@ -133,7 +133,7 @@ exports.confirmEmail = async(req, res)=>{
     try {
         const token =  req.params.token 
 
-        const result = await confirmGmailServices(token)
+        const result = await confirmationGmailServices(token)
        
         res.status(200).json({
             status: 'success',
