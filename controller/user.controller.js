@@ -131,13 +131,35 @@ exports.getMe = async(req, res)=>{
 //  confirmation gmail controller -------------------------------
 exports.confirmEmail = async(req, res)=>{
     try {
-        const token =  req.params.token 
+        const {token} =  req.params
 
         const result = await confirmationGmailServices(token)
-       
+
+        if(!result){
+            res.status(401).json({
+                status: "fail",
+                message: "invalid token"
+            })
+        }
+
+        const expired= new Date() > new Date(result.confirmationTokenExpires)
+
+        if(expired){
+            res.status(401).json({
+                status: "fail",
+                messege: "token expired"
+            })
+        }
+
+        result.isVerified = true;
+        result.confirmationToken = undefined;
+        result.confirmationTokenExpires = undefined;
+
+       result.save({validateBeforeSave: false})
+
         res.status(200).json({
             status: 'success',
-            data: result
+            message: "successfully activated your account"
         })
     } catch (error) {
         res.status(400).json({
