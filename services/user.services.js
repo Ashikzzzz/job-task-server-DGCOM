@@ -33,3 +33,8 @@ exports.loginAuserService = async(email)=>{
 exports.findUserByEmail = async (email) => {
     return await User.findOne({ email });
  };
+
+ // user confirmation gmail services-------------
+exports.confirmationGmailServices = async (token) => {
+    return await User.findOne({ confirmationToken:token });
+ };
