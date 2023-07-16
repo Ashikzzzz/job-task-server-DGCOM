@@ -20,10 +20,11 @@ const userSchema = new mongoose.Schema({
         required: true
     },
 
-   isVerified:{
-    type: Boolean,
-    default: false
-   },
+    status: {
+        type: String,
+        default: "inactive",
+        enum: ["active","inactive"]
+    },
    confirmationToken: String,
    confirmationTokenExpires: Date,
 },
