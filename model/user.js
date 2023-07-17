@@ -47,8 +47,8 @@ userSchema.pre("save",function(next){
 
 // compare a password for login 
 
-userSchema.methods.comparePassword = (password, hash)=>{
-    const isPasswordValid = bcrypt.compareSync(password,hash)
+userSchema.methods.comparePassword = function(password, hash){
+    const isPasswordValid = bcrypt.compare(password,hash)
     return isPasswordValid
 }
 
