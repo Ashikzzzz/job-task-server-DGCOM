@@ -43,7 +43,7 @@ exports.loginAuser = async(req, res)=>{
     try {
         const {email,password}= req.body                     //take data from body
 
- 
+ console.log("password",password)
         if(!password || !email){                              //cheak user email and password exists
             res.status(200).json({
                 status: 'failed',
@@ -53,7 +53,7 @@ exports.loginAuser = async(req, res)=>{
 
 
         const user = await loginAuserService(email)        // if user exists send db the email
-
+console.log("user",user.password)
 
         if(!user){                                          // if not user exists send response
             res.status(200).json({
@@ -64,8 +64,9 @@ exports.loginAuser = async(req, res)=>{
         }
         
 
-        const isPasswordLegal= user.comparePassword(password, user.password)        //comparepassword
+        const isPasswordLegal= user.comparePassword( password, user.password)        //comparepassword
 
+            console.log("isPasswordLegal",isPasswordLegal)
 
         if(!isPasswordLegal){                                         // if password is not valid pass
             res.status(200).json({
