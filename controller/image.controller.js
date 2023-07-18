@@ -1,3 +1,5 @@
+const { getImageServices } = require("../services/image.services")
+
 //  image controller -------------------------------
 exports.getImage = async(req, res)=>{
     try {
